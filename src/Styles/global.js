@@ -23,6 +23,7 @@ export default createGlobalStyle`
     --negative: #E83F5B;
 
     --black: #000000;
+    --white: #FFFFFF
 }
 
 body{
