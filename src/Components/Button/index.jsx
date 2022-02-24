@@ -8,7 +8,13 @@ export default function Button({
   ...rest
 }) {
   return (
-    <Container type="button" {...rest}>
+    <Container
+      type="button"
+      isMedium={isMedium}
+      isNegative={isNegative}
+      isDisabled={isDisabled}
+      {...rest}
+    >
       {children}
     </Container>
   );

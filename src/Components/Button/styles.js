@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.button`
-  width: ${(props) => (props.isMedium ? "110px" : "143.67px")};
+  width: ${(props) => (props.isMedium ? "110px" : "100%")};
   height: ${(props) => (props.isMedium ? "32px" : "48px")};
 
   display: flex;
@@ -38,6 +38,22 @@ export const Container = styled.button`
 
   :hover {
     background-color: ${(props) =>
-      props.isMedium ? "#343B41" : props.isDisabled ? "#343B41" : "#FF427F"};
+      props.isMedium
+        ? "#343B41"
+        : props.isNegative
+        ? "none"
+        : props.isDisabled
+        ? "#343B41"
+        : "#FF427F"};
   }
+
+  border: 1.2182px solid
+    ${(props) =>
+      props.isMedium
+        ? "#343B41"
+        : props.isNegative
+        ? "none"
+        : props.isDisabled
+        ? "#343B41"
+        : "#FF427F"};
 `;
