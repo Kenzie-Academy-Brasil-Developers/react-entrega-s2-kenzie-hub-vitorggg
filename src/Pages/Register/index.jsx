@@ -34,7 +34,14 @@ export default function Register() {
               placeholder={"Confirme aqui sua senha"}
               type="password"
             />
-            <Select label={"Selecionar módulo"} />
+            <Select label={"Selecionar módulo"}>
+              <option value="Primeiro Módulo">Primeiro Módulo</option>
+              <option value="Segundo Módulo">Segundo Módulo</option>
+              <option value="Terceiro Módulo">Terceiro Módulo</option>
+              <option value="Quarto Módulo">Quarto Módulo</option>
+              <option value="Quinto Módulo">Quinto Módulo</option>
+              <option value="Sexto Módulo">Sexto Módulo</option>
+            </Select>
             <ContainerFooter>
               <Button isNegative={true}>Cadastrar</Button>
             </ContainerFooter>

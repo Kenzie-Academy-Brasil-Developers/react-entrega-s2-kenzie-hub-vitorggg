@@ -36,14 +36,14 @@ export const InputContainer = styled.div`
     font-weight: normal;
     color: var(--grey-1);
     padding: 8px 12.9865px;
+
+    :hover::placeholder {
+      color: var(--grey-0);
+    }
   }
 
   :hover {
     border: 0.973988px solid var(--grey-0);
     color: var(--grey-0);
-  }
-
-  :-webkit-input-placeholder {
-    color: var(--grey-1);
   }
 `;

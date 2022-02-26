@@ -5,14 +5,7 @@ export default function Select({ label, icon, ...rest }) {
     <Container>
       <div>{label}</div>
       <SelectContainer>
-        <select {...rest}>
-          <option>Primeiro Módulo</option>
-          <option>Segundo Módulo</option>
-          <option>Terceiro Módulo</option>
-          <option>Quarto Módulo</option>
-          <option>Quinto Módulo</option>
-          <option>Sexto Módulo</option>
-        </select>
+        <select {...rest}></select>
       </SelectContainer>
     </Container>
   );

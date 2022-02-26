@@ -36,6 +36,12 @@ export const SelectContainer = styled.div`
     font-weight: normal;
     color: var(--grey-1);
     padding: 8px 12.9865px;
+
+    option {
+      background-color: var(--grey-2);
+      border: 0.973988px solid var(--grey-2);
+      border-radius: 3.19812px;
+    }
   }
 
   :hover {
