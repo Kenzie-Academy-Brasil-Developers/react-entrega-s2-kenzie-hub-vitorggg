@@ -10,6 +10,10 @@ export const Container = styled.div`
     font-size: 0.609rem;
     color: var(--grey-0);
     margin-bottom: 12.86px;
+
+    span {
+      color: var(--negative);
+    }
   }
 `;
 

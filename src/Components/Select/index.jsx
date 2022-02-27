@@ -1,11 +1,28 @@
 import { Container, SelectContainer } from "./styles";
 
-export default function Select({ label, icon, ...rest }) {
+export default function Select({
+  label,
+  name,
+  options,
+  register,
+  error,
+  ...rest
+}) {
   return (
     <Container>
-      <div>{label}</div>
+      <div>
+        {label} {!!error && <span> - {error}</span>}
+      </div>
       <SelectContainer>
-        <select {...rest}></select>
+        <select {...register(name)} {...rest}>
+          {options.map((item) => {
+            return (
+              <option key={item} value={item}>
+                {item.split(" ")[0] + " " + item.split(" ")[1]}
+              </option>
+            );
+          })}
+        </select>
       </SelectContainer>
     </Container>
   );
