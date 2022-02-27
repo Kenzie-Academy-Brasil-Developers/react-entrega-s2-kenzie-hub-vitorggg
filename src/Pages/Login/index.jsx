@@ -6,8 +6,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
+import api from "../../Services/api";
+import { toast } from "react-toastify";
+import { Redirect } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ authenticated, setAuthenticated }) {
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -28,9 +31,24 @@ export default function Login() {
     history.push("/register");
   };
 
-  const newUser = (data) => {
-    console.log(data);
+  const login = (data) => {
+    api
+      .post("/sessions", data)
+      .then((response) => {
+        const { token, user } = response.data;
+
+        localStorage.setItem("@kenzieHub:token", token);
+
+        localStorage.setItem("@kenzieHub:user", user);
+
+        setAuthenticated(true);
+      })
+      .catch((_) => toast.error("Email e/ou senha inválido(s)!"));
   };
+
+  if (authenticated) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <Container>
@@ -38,7 +56,7 @@ export default function Login() {
         <img alt="logo" src={logo} />
         <ContentForm>
           <h2>Login</h2>
-          <form onSubmit={handleSubmit(newUser)}>
+          <form onSubmit={handleSubmit(login)}>
             <Input
               register={register}
               label={"E-mail"}

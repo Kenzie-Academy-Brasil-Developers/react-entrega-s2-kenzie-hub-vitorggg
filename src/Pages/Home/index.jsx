@@ -9,14 +9,29 @@ import {
 import logo from "../../Assets/Logo.svg";
 import Button from "../../Components/Button";
 import Cards from "../../Components/Cards";
+import { Redirect, useHistory } from "react-router-dom";
 
-export default function Home() {
+export default function Home({ authenticated, setAuthenticated }) {
+  const history = useHistory();
+
+  const logOff = () => {
+    localStorage.clear();
+    setAuthenticated(false);
+    history.push("/");
+  };
+
+  if (!authenticated) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <Container>
       <Content>
         <ContentHeader>
           <img alt="logo" src={logo} />
-          <Button isMedium={true}>Sair</Button>
+          <Button onClick={logOff} isMedium={true}>
+            Sair
+          </Button>
         </ContentHeader>
         <hr />
         <ContentTitle>

@@ -15,8 +15,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../Services/api";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-export default function Register() {
+export default function Register({ authenticated }) {
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatório!"),
     email: yup
@@ -49,7 +50,6 @@ export default function Register() {
     const bio = "Lorem ipsum dolor emet";
     const contact = "123456789";
     const user = { email, password, name, bio, contact, course_module };
-    console.log(user);
     api
       .post("/users", user)
       .then((_) => {
@@ -58,6 +58,10 @@ export default function Register() {
       })
       .catch((_) => toast.error("Ops! Algo deu errado"));
   };
+
+  if (authenticated) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <Container>
