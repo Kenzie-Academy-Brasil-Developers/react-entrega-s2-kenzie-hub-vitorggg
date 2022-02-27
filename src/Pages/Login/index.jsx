@@ -2,7 +2,7 @@ import { Container, Content, ContentForm, ContainerFooter } from "./styles";
 import logo from "../../Assets/Logo.svg";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
-import TechDetail from "../../Components/TechDetail";
+import TechCad from "../../Components/TechCad";
 
 export default function Login() {
   return (
