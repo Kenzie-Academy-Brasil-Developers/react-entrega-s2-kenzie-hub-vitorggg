@@ -14,30 +14,6 @@ import { toast } from "react-toastify";
 export default function TechDetail({ hide = true, setCanEdit }) {
   const { register, handleSubmit } = useForm();
 
-  const token = JSON.parse(localStorage.getItem("@kenzieHub:token"));
-
-  const tech = JSON.parse(localStorage.getItem("@kenzieHub:cardTech"));
-
-  console.log(tech.id);
-
-  const editTech = ({ status }) => {
-    api
-      .put(`/users/techs/${tech.id}`, status, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
-  };
-
-  const deleteTech = () => {
-    api
-      .delete(`/users/techs/${tech.id}`)
-      .then(toast.success("Tecnologia apagada com sucesso!"))
-      .catch(toast.err("Não foi possível realizar a ação"));
-  };
-
   const exitCart = () => {
     setCanEdit(false);
   };
@@ -53,7 +29,7 @@ export default function TechDetail({ hide = true, setCanEdit }) {
         </div>
       </ContainerTitle>
       <ContainerMain>
-        <form onSubmit={handleSubmit(editTech)}>
+        <form>
           <Input
             register={register}
             label={"Nome do projeto"}
@@ -71,15 +47,7 @@ export default function TechDetail({ hide = true, setCanEdit }) {
               Salvar alterações
             </Button>
             <div>
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  deleteTech();
-                }}
-                isDisabled={true}
-              >
-                Excluir
-              </Button>
+              <Button isDisabled={true}>Excluir</Button>
             </div>
           </ContainerFooter>
         </form>

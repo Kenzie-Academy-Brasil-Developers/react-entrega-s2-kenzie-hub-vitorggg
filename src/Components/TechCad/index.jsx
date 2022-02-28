@@ -11,21 +11,10 @@ import { useForm } from "react-hook-form";
 import api from "../../Services/api";
 import { toast } from "react-toastify";
 
-export default function TechCad({ hide = true, setCanAdd }) {
+export default function TechCad({ hide = true, setCanAdd, loadTechs }) {
   const { register, handleSubmit } = useForm();
 
   const token = JSON.parse(localStorage.getItem("@kenzieHub:token"));
-
-  const id = JSON.parse(localStorage.getItem("@kenzieHub:token")).id;
-
-  const updateUser = (id) => {
-    api
-      .get(`/users/${id}`)
-      .then((response) => {
-        localStorage.setItem("KenzieHub:user", JSON.stringify(response.data));
-      })
-      .catch((err) => console.log(err));
-  };
 
   const addNewTech = (data) => {
     api
@@ -36,9 +25,9 @@ export default function TechCad({ hide = true, setCanAdd }) {
       })
       .then((_) => {
         toast.success("Tecnologia adicionada com sucesso!");
-        updateUser(id);
+        loadTechs();
       })
-      .catch((err) => console.log(err));
+      .catch((_) => toast.error("Houve erro na resuisição"));
   };
 
   const exitCart = () => {
