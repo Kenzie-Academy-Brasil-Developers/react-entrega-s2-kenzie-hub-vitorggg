@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
+  display: ${(props) => (props.hide ? "none" : "flex")};
   flex-direction: column;
   align-items: flex-start;
+
+  position: absolute;
+
   width: 295px;
   height: 273.41px;
+
   background: var(--grey-3);
   box-shadow: 0px 3.19783px 31.9783px -7.99458px rgba(0, 0, 0, 0.25);
   border-radius: 3.19783px;
@@ -28,8 +32,10 @@ export const ContainerTitle = styled.div`
     color: var(--grey-0);
   }
 
-  a {
-    color: var(--grey-0);
+  button {
+    width: 8.82px;
+    height: 20.86px;
+    background-color: var(--grey-2);
   }
 `;
 

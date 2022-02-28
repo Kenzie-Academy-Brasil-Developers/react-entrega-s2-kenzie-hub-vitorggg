@@ -37,9 +37,9 @@ export default function Login({ authenticated, setAuthenticated }) {
       .then((response) => {
         const { token, user } = response.data;
 
-        localStorage.setItem("@kenzieHub:token", token);
+        localStorage.setItem("@kenzieHub:token", JSON.stringify(token));
 
-        localStorage.setItem("@kenzieHub:user", user);
+        localStorage.setItem("@kenzieHub:user", JSON.stringify(user));
 
         setAuthenticated(true);
       })

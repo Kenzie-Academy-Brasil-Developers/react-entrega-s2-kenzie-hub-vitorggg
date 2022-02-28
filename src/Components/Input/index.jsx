@@ -1,6 +1,6 @@
 import { Container, InputContainer } from "./styles";
 
-export default function Input({ label, register, name, error, ...rest }) {
+export default function Input({ label, register, name, error = "", ...rest }) {
   return (
     <Container>
       <div>

@@ -10,14 +10,41 @@ import logo from "../../Assets/Logo.svg";
 import Button from "../../Components/Button";
 import Cards from "../../Components/Cards";
 import { Redirect, useHistory } from "react-router-dom";
+import { useState } from "react";
+import TechCad from "../../Components/TechCad";
+import TechDetail from "../../Components/TechDetail";
+import api from "../../Services/api";
 
 export default function Home({ authenticated, setAuthenticated }) {
+  const [canAdd, setCanAdd] = useState(false);
+  const [canEdit, setCanEdit] = useState(false);
+
   const history = useHistory();
+
+  const userName = JSON.parse(localStorage.getItem("@kenzieHub:user")).name;
+  const userModule = JSON.parse(
+    localStorage.getItem("@kenzieHub:user")
+  ).course_module;
+  const userTechs = JSON.parse(localStorage.getItem("@kenzieHub:user")).techs;
 
   const logOff = () => {
     localStorage.clear();
     setAuthenticated(false);
     history.push("/");
+  };
+
+  const addNewTech = () => {
+    setCanAdd(true);
+  };
+
+  const searchId = (id) => {
+    const findedTech = userTechs.find((item) => item.id === id);
+    localStorage.setItem("@kenzieHub:cardTech", JSON.stringify(findedTech));
+  };
+
+  const editing = (itemID) => {
+    setCanEdit(true);
+    searchId(itemID);
   };
 
   if (!authenticated) {
@@ -35,20 +62,29 @@ export default function Home({ authenticated, setAuthenticated }) {
         </ContentHeader>
         <hr />
         <ContentTitle>
-          <h2>Olá, Samuel Leão</h2>
-          <span>Primeiro módulo (Introdução ao Frontend)</span>
+          <h2>Olá, {userName}</h2>
+          <span>{userModule}</span>
         </ContentTitle>
         <hr />
         <ContentMain>
           <h2>Tecnologias</h2>
-          <Button isMedium={true}>+</Button>
+          <Button onClick={addNewTech} isMedium={true}>
+            +
+          </Button>
         </ContentMain>
         <ContentTable>
-          <Cards title={"React JS"} level={"Intermediário"} />
-          <Cards title={"Next JS"} level={"Iniciante"} />
-          <Cards title={"Material UI"} level={"Avançado"} />
-          <Cards title={"Styled-Components"} level={"Intermediário"} />
+          {userTechs.map((item) => (
+            <Cards
+              onClick={() => editing(item.id)}
+              title={item.title}
+              level={item.status}
+              key={item.title}
+              id={item.id}
+            />
+          ))}
         </ContentTable>
+        <TechCad hide={canAdd ? false : true} setCanAdd={setCanAdd} />
+        <TechDetail hide={canEdit ? false : true} setCanEdit={setCanEdit} />
       </Content>
     </Container>
   );

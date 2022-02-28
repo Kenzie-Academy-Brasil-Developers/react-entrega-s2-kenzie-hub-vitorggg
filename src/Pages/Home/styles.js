@@ -32,10 +32,10 @@ export const Content = styled.div`
     color: var(--grey-3);
   }
 
-  @media (min-width: 765px) {
+  /* @media (min-width: 765px) {
     align-items: flex-start;
     justify-content: stretch;
-  }
+  } */
 `;
 
 export const ContentHeader = styled.div`
@@ -127,13 +127,14 @@ export const ContentMain = styled.div`
 export const ContentTable = styled.div`
   width: 55%;
   min-width: 296px;
+  max-height: 50%;
   border-radius: 4px;
   padding: 9px 12px;
   margin-top: 30px;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
 
