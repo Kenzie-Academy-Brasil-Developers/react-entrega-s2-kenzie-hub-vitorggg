@@ -9,6 +9,7 @@ import {
   ContainerTitle,
 } from "./styles";
 import api from "../../Services/api";
+import { toast } from "react-toastify";
 
 export default function TechDetail({
   hide = true,
@@ -28,15 +29,26 @@ export default function TechDetail({
         },
       })
       .then((res) => {
+        toast.success("Tecnologia alterada com sucesso!");
+        loadTechs();
+      })
+      .catch((_) => toast.error("Houve erro na resuisição"));
+  };
+
+  const deleteCard = () => {
+    api
+      .delete(`/users/techs/${cardTech.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
         console.log(res.data);
         loadTechs();
       })
-      .catch((err) => console.log(err));
-    // .then((_) => {
-    //   toast.success("Tecnologia adicionada com sucesso!");
-    //   loadTechs();
-    // })
-    // .catch((_) => toast.error("Houve erro na resuisição"));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const exitCart = () => {
@@ -72,7 +84,9 @@ export default function TechDetail({
               Salvar alterações
             </Button>
             <div>
-              <Button isDisabled={true}>Excluir</Button>
+              <Button type="button" onClick={deleteCard} isDisabled={true}>
+                Excluir
+              </Button>
             </div>
           </ContainerFooter>
         </form>
