@@ -9,10 +9,35 @@ import {
   ContainerTitle,
 } from "./styles";
 import api from "../../Services/api";
-import { toast } from "react-toastify";
 
-export default function TechDetail({ hide = true, setCanEdit }) {
+export default function TechDetail({
+  hide = true,
+  setCanEdit,
+  cardTech,
+  loadTechs,
+}) {
   const { register, handleSubmit } = useForm();
+
+  const token = JSON.parse(localStorage.getItem("@kenzieHub:token"));
+
+  const editTech = (data) => {
+    api
+      .put(`/users/techs/${cardTech.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        loadTechs();
+      })
+      .catch((err) => console.log(err));
+    // .then((_) => {
+    //   toast.success("Tecnologia adicionada com sucesso!");
+    //   loadTechs();
+    // })
+    // .catch((_) => toast.error("Houve erro na resuisição"));
+  };
 
   const exitCart = () => {
     setCanEdit(false);
@@ -29,7 +54,7 @@ export default function TechDetail({ hide = true, setCanEdit }) {
         </div>
       </ContainerTitle>
       <ContainerMain>
-        <form>
+        <form onSubmit={handleSubmit(editTech)}>
           <Input
             register={register}
             label={"Nome do projeto"}

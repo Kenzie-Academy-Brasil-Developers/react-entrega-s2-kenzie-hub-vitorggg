@@ -20,6 +20,7 @@ export default function Home({ authenticated, setAuthenticated }) {
   const [canAdd, setCanAdd] = useState(false);
   const [canEdit, setCanEdit] = useState(false);
   const [techs, setTechs] = useState([]);
+  const [cardTech, setCardTech] = useState({});
   const user = JSON.parse(localStorage.getItem("@kenzieHub:user"));
 
   useEffect(() => {
@@ -49,8 +50,8 @@ export default function Home({ authenticated, setAuthenticated }) {
   };
 
   const searchId = (id) => {
-    const findedTech = user.techs.find((item) => item.id === id);
-    localStorage.setItem("@kenzieHub:cardTech", JSON.stringify(findedTech));
+    const findedTech = techs.find((item) => item.id === id);
+    setCardTech(findedTech);
   };
 
   const editing = (itemID) => {
@@ -100,7 +101,12 @@ export default function Home({ authenticated, setAuthenticated }) {
           setCanAdd={setCanAdd}
           loadTechs={loadTechs}
         />
-        <TechDetail hide={canEdit ? false : true} setCanEdit={setCanEdit} />
+        <TechDetail
+          hide={canEdit ? false : true}
+          setCanEdit={setCanEdit}
+          cardTech={cardTech}
+          loadTechs={loadTechs}
+        />
       </Content>
     </Container>
   );
