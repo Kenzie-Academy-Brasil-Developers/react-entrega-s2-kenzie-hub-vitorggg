@@ -9,6 +9,7 @@ import {
   ContainerTitle,
 } from "./styles";
 import api from "../../Services/api";
+import { toast } from "react-toastify";
 
 export default function TechDetail({ hide = true, setCanEdit }) {
   const { register, handleSubmit } = useForm();
@@ -17,17 +18,24 @@ export default function TechDetail({ hide = true, setCanEdit }) {
 
   const tech = JSON.parse(localStorage.getItem("@kenzieHub:cardTech"));
 
-  const techId = tech.id;
+  console.log(tech.id);
 
   const editTech = ({ status }) => {
     api
-      .put(`/users/techs/${techId}`, status, {
+      .put(`/users/techs/${tech.id}`, status, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
+  };
+
+  const deleteTech = () => {
+    api
+      .delete(`/users/techs/${tech.id}`)
+      .then(toast.success("Tecnologia apagada com sucesso!"))
+      .catch(toast.err("Não foi possível realizar a ação"));
   };
 
   const exitCart = () => {
@@ -63,7 +71,15 @@ export default function TechDetail({ hide = true, setCanEdit }) {
               Salvar alterações
             </Button>
             <div>
-              <Button isDisabled={true}>Excluir</Button>
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  deleteTech();
+                }}
+                isDisabled={true}
+              >
+                Excluir
+              </Button>
             </div>
           </ContainerFooter>
         </form>
